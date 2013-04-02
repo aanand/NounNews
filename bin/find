@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require 'noun_identifier'
+require 'headline_fetcher'
+
+identifier = NounIdentifier.new
+fetcher    = HeadlineFetcher.new("http://feeds.bbci.co.uk/news/rss.xml")
+
+headlines = fetcher.fetch
+
+headlines.each do |hl|
+  words = hl.downcase.scan(/([a-z]+(\'[a-z]+)?)/).map(&:first)
+
+  if words.all? { |word| identifier.is_noun?(word) }
+    puts hl
+  end
+end

@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+nouns     = File.read('spec/support/nouns.txt').split
+not_nouns = File.read('spec/support/not_nouns.txt').split
+
+require 'noun_identifier/brian'
+require 'noun_identifier/wordnet'
+require 'noun_identifier/override'
+
+# identifier = NounIdentifier::Brian.new
+# identifier = NounIdentifier::WordNet.new
+identifier = NounIdentifier::Override.new(NounIdentifier::Brian.new)
+
+score = 0
+false_nouns = []
+false_not_nouns = []
+
+nouns.each do |noun|
+  if identifier.is_noun?(noun)
+    score += 1
+  else
+    score -= 1
+    false_not_nouns << noun
+  end
+end
+
+not_nouns.each do |not_noun|
+  if identifier.is_noun?(not_noun)
+    score -= 1
+    false_nouns << not_noun
+  else
+    score += 1
+  end
+end
+
+puts "#{identifier.class} scored #{score} points."
+puts "#{false_nouns.length} words were incorrectly identified as nouns: #{false_nouns.inspect}"
+puts "#{false_not_nouns.length} words were incorrectly identified as non-nouns: #{false_not_nouns.inspect}"

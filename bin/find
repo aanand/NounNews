@@ -3,16 +3,31 @@
 require 'headline_fetcher'
 require 'headline_checker'
 require 'formatter'
+require 'pp'
+
+sources = ARGV
+
+if sources.empty?
+  sources = [
+    "http://feeds.bbci.co.uk/news/rss.xml",
+    "http://feeds.guardian.co.uk/theguardian/rss",
+    "http://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+    "http://www.theglobeandmail.com/news/toronto/?service=rss",
+    "http://www.telegraph.co.uk/rss"
+  ]
+end
 
 checker    = HeadlineChecker.new
-fetcher    = HeadlineFetcher.new("http://feeds.bbci.co.uk/news/rss.xml")
+fetchers   = sources.map { |url| HeadlineFetcher.new(url) }
 formatter  = Formatter.new
 
-headlines = fetcher.fetch
+fetchers.each do |fetcher|
+  headlines = fetcher.fetch
 
-headlines.each do |hl|
-  if checker.is_all_nouns?(hl[:title])
-    hl[:title] = formatter.format(hl[:title])
-    p hl
+  headlines.each do |hl|
+    if checker.is_all_nouns?(hl[:title])
+      hl[:title] = formatter.format(hl[:title])
+      pp hl
+    end
   end
 end

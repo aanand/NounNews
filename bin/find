@@ -1,26 +1,18 @@
 #!/usr/bin/env ruby
 
-require 'word_extractor'
-require 'noun_identifier'
 require 'headline_fetcher'
+require 'headline_checker'
 require 'formatter'
 
-extractor  = WordExtractor.new
-identifier = NounIdentifier.default
+checker    = HeadlineChecker.new
 fetcher    = HeadlineFetcher.new("http://feeds.bbci.co.uk/news/rss.xml")
 formatter  = Formatter.new
 
 headlines = fetcher.fetch
 
 headlines.each do |hl|
-  words = extractor.extract(hl)
-
-  # require 'colored'
-  # puts words.map { |w| 
-  #   identifier.is_noun?(w) ? w.green : w
-  # }.join(' ')
-
-  if words.all? { |word| identifier.is_noun?(word) }
-    puts formatter.format(hl)
+  if checker.is_all_nouns?(hl[:title])
+    hl[:title] = formatter.format(hl[:title])
+    p hl
   end
 end

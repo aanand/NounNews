@@ -4,6 +4,11 @@ require 'noun_identifier'
 describe NounIdentifier do
   subject { NounIdentifier.default }
 
+  it "returns false for posessives" do
+    %w(duck).should be_nouns
+    %w(duck's).should_not be_nouns
+  end
+
   it "returns false for words which are technically nouns but not really used as such" do
     %w(more over in as).should_not be_nouns
   end

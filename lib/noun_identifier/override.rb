@@ -7,6 +7,9 @@ module NounIdentifier
     end
 
     def is_noun?(word)
+      # no posessives
+      return false if word =~ /'/
+
       # nothing with a number in it is a noun
       return false if word =~ /\d/
 

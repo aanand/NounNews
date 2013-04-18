@@ -18,16 +18,14 @@ if sources.empty?
 end
 
 checker    = HeadlineChecker.new
-fetchers   = sources.map { |url| HeadlineFetcher.new(url) }
+fetcher    = HeadlineFetcher.new
 formatter  = Formatter.new
 
-fetchers.each do |fetcher|
-  headlines = fetcher.fetch
+headlines = fetcher.fetch(sources, 10_000)
 
-  headlines.each do |hl|
-    if checker.is_all_nouns?(hl[:title])
-      hl[:title] = formatter.format(hl[:title])
-      pp hl
-    end
+headlines.each do |hl|
+  if checker.is_all_nouns?(hl[:title])
+    hl[:title] = formatter.format(hl[:title])
+    pp hl
   end
 end

@@ -1,42 +1,32 @@
-require 'open-uri'
-require 'nokogiri'
+require 'typhoeus'
+require 'headline_extractor'
 
 class HeadlineFetcher
-  def initialize(url)
-    @url = url
+  def initialize
+    @extractor = HeadlineExtractor.new
   end
 
-  def fetch
-    xml = open(@url)
-    doc = Nokogiri::XML(xml)
+  def fetch(sources, timeout)
+    headlines = []
+    hydra = Typhoeus::Hydra.new
 
-    get_stories(doc).map { |story_el|
-      title = get_title(story_el)
-      url   = get_url(story_el)
+    sources.each do |url|
+      request = Typhoeus::Request.new(url, timeout: timeout)
 
-      title && url && {title: title, url: url}
-    }.compact
+      request.on_complete do |response|
+        if response.success?
+          headlines += extract_headlines(response)
+        end
+      end
+
+      hydra.queue(request)
+    end
+
+    hydra.run
+    headlines
   end
 
-  def get_stories(doc)
-    doc.search('.//item')
-  end
-
-  def get_title(item_el)
-    get_text_for_selector(item_el, './/title')
-  end
-
-  def get_url(item_el)
-    url = get_text_for_selector(item_el, './/link')
-    return nil if url.nil?
-
-    uri = URI(url)
-    uri.fragment = nil
-    uri.to_s
-  end
-
-  def get_text_for_selector(el, selector)
-    child = el.search(selector).first
-    child && child.text
+  def extract_headlines(response)
+    @extractor.extract(response.body)
   end
 end

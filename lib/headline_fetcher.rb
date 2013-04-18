@@ -2,11 +2,14 @@ require 'typhoeus'
 require 'headline_extractor'
 
 class HeadlineFetcher
+  attr_accessor :timeout
+
   def initialize
     @extractor = HeadlineExtractor.new
+    @timeout   = 10_000
   end
 
-  def fetch(sources, timeout)
+  def fetch(sources)
     headlines = []
     hydra = Typhoeus::Hydra.new
 

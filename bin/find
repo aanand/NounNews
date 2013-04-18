@@ -1,31 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'headline_fetcher'
-require 'headline_checker'
-require 'formatter'
+require 'finder'
 require 'pp'
 
-sources = ARGV
+finder = Finder.new
+finder.sources = ARGV unless ARGV.empty?
 
-if sources.empty?
-  sources = [
-    "http://feeds.bbci.co.uk/news/rss.xml",
-    "http://feeds.guardian.co.uk/theguardian/rss",
-    "http://rss.nytimes.com/services/xml/rss/nyt/World.xml",
-    "http://www.theglobeandmail.com/news/toronto/?service=rss",
-    "http://www.telegraph.co.uk/rss"
-  ]
-end
-
-checker    = HeadlineChecker.new
-fetcher    = HeadlineFetcher.new
-formatter  = Formatter.new
-
-headlines = fetcher.fetch(sources, 10_000)
-
-headlines.each do |hl|
-  if checker.is_all_nouns?(hl[:title])
-    hl[:title] = formatter.format(hl[:title])
-    pp hl
-  end
-end
+pp finder.find

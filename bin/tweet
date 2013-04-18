@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'finder'
+require 'db'
+require 'pp'
+
+finder = Finder.new
+
+headline = finder.find
+                 .reject { |hl| Tweet.has_been_tweeted?(hl[:url]) }
+                 .shuffle
+                 .first
+
+if headline
+  puts "Tweeting: #{headline[:title]}"
+
+  Tweet.store(
+    headline_title: headline[:title],
+    headline_url:   headline[:url]
+  )
+else
+  puts "Nothing to tweet"
+end

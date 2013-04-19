@@ -15,11 +15,15 @@ require 'pp'
 
 finder = Finder.new
 
-headline = finder.find
-                 .reject { |hl| Tweet.has_been_tweeted?(hl[:url]) }
-                 .reject { |hl| hl.length > 140 - 20 - 1 } # 1 space, 20 char url
-                 .shuffle
-                 .first
+all_headlines   = finder.find
+not_yet_tweeted = all_headlines.reject { |hl| Tweet.has_been_tweeted?(hl[:url]) }
+not_too_long    = not_yet_tweeted.reject { |hl| hl.length > 140 - 20 - 1 } # 1 space, 20 char url
+
+puts "#{all_headlines.length} candidate headlines found"
+puts "#{not_yet_tweeted.length} of those have not already been tweeted"
+puts "#{not_too_long.length} of those are short enough"
+
+headline = not_too_long.shuffle.first
 
 if headline
   text = headline[:title] + " " + headline[:url]

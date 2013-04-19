@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 
 gem 'twitter'
 gem 'sqlite3', group: :development
+gem 'pg', group: :production
 gem 'sequel'
 gem 'typhoeus'
 gem 'nokogiri'

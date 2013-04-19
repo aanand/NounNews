@@ -4,6 +4,7 @@ source :rubygems
 # gem 'wordnet-defaultdb'
 # gem 'activesupport'
 
+gem 'twitter'
 gem 'sqlite3'
 gem 'sequel'
 gem 'typhoeus'

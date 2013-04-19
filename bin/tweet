@@ -1,5 +1,14 @@
 #!/usr/bin/env ruby
 
+require 'twitter'
+
+Twitter.configure do |config|
+  config.consumer_key       = ENV['TWITTER_CONSUMER_KEY']
+  config.consumer_secret    = ENV['TWITTER_CONSUMER_SECRET']
+  config.oauth_token        = ENV['TWITTER_OAUTH_TOKEN']
+  config.oauth_token_secret = ENV['TWITTER_OAUTH_TOKEN_SECRET']
+end
+
 require 'finder'
 require 'db'
 require 'pp'
@@ -8,16 +17,23 @@ finder = Finder.new
 
 headline = finder.find
                  .reject { |hl| Tweet.has_been_tweeted?(hl[:url]) }
+                 .reject { |hl| hl.length > 140 - 20 - 1 } # 1 space, 20 char url
                  .shuffle
                  .first
 
 if headline
-  puts "Tweeting: #{headline[:title]}"
+  text = headline[:title] + " " + headline[:url]
+  puts "Tweeting: #{text}"
 
-  Tweet.store(
+  id = Tweet.insert(
     headline_title: headline[:title],
-    headline_url:   headline[:url]
+    headline_url:   headline[:url],
+    tweeted_at:     Time.now
   )
+
+  tweet = Twitter.update(text)
+
+  Tweet.where(id: id).update(twitter_id: tweet.id)
 else
   puts "Nothing to tweet"
 end

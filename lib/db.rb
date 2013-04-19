@@ -19,8 +19,4 @@ class << Tweet
   def has_been_tweeted?(url)
     filter(headline_url: url).count > 0
   end
-
-  def store(attrs)
-    insert(attrs)
-  end
 end

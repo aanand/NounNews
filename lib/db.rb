@@ -1,6 +1,6 @@
 require 'sequel'
 
-database_url = ENV['DATABASE_URL'] || 'sqlite://data/db.sqlite3'
+database_url = ENV['HEROKU_POSTGRESQL_CYAN_URL'] || 'sqlite://data/db.sqlite3'
 DB = Sequel.connect(database_url)
 
 unless DB.table_exists?(:tweets)

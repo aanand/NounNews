@@ -20,4 +20,8 @@ class Finder
     headlines.select { |hl| @checker.is_all_nouns?(hl[:title]) }
              .map    { |hl| hl.merge(title: @formatter.format(hl[:title])) }
   end
+
+  def dump
+    @fetcher.fetch(sources)
+  end
 end

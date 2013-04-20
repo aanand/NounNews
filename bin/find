@@ -3,7 +3,14 @@
 require 'finder'
 require 'pp'
 
+action = :find
+
+if ARGV.first == '--dump'
+  action = :dump
+  ARGV.shift
+end
+
 finder = Finder.new
 finder.sources = ARGV unless ARGV.empty?
 
-pp finder.find
+pp finder.send(action)

@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'uri'
 
 class HeadlineExtractor
   def extract(xml)

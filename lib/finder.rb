@@ -3,13 +3,7 @@ require 'headline_checker'
 require 'formatter'
 
 class Finder
-  DEFAULT_SOURCES = [
-    "http://feeds.bbci.co.uk/news/rss.xml",
-    "http://feeds.guardian.co.uk/theguardian/rss",
-    "http://rss.nytimes.com/services/xml/rss/nyt/World.xml",
-    "http://www.theglobeandmail.com/news/toronto/?service=rss",
-    "http://www.telegraph.co.uk/rss"
-  ]
+  DEFAULT_SOURCES = File.open('data/sources.txt').readlines.compact
 
   attr_accessor :sources
 

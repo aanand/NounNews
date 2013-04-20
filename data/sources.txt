@@ -45,3 +45,5 @@ http://news.sky.com/feeds/rss/technology.xml
 http://news.sky.com/feeds/rss/entertainment.xml
 http://news.sky.com/feeds/rss/strange.xml
 
+http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989
+

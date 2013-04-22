@@ -26,7 +26,11 @@ describe NounIdentifier do
   end
 
   it "returns true for plural nouns" do
-    %w(makes improvements videos beers breweries trucks spills).should be_nouns
+    %w(improvements videos beers breweries trucks spills).should be_nouns
+  end
+
+  it "returns false for plural nouns which induce a 'Huh?'" do
+    %w(makes says dies).should_not be_nouns
   end
 
   it "returns false for hyphenated words which aren't in fact nouns" do

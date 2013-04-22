@@ -20,6 +20,7 @@ deadly
 defends
 denies
 deserved
+dies
 disappeared
 electric
 every
@@ -59,6 +60,7 @@ linked
 literary
 loses
 low-key
+makes
 may
 mid-week
 more
@@ -80,6 +82,7 @@ rejected
 relaxed
 retired
 rushed
+says
 sent
 severe
 should

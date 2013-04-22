@@ -113,7 +113,6 @@ life
 list
 loans
 madonna
-makes
 man
 mandela
 manager

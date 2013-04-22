@@ -22,10 +22,14 @@ describe NounIdentifier do
   end
 
   it "returns true for singular nouns" do
-    %w(mandela make improvement video beer brewery truck spill)
+    %w(mandela make improvement video beer brewery truck spill).should be_nouns
   end
 
   it "returns true for plural nouns" do
-    %w(makes improvements videos beers breweries trucks spills)
+    %w(makes improvements videos beers breweries trucks spills).should be_nouns
+  end
+
+  it "returns false for hyphenated words which aren't in fact nouns" do
+    %w(low-key mid-week wrought-iron $25-a-plate).should_not be_nouns
   end
 end

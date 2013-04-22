@@ -28,4 +28,8 @@ describe NounIdentifier do
   it "returns true for plural nouns" do
     %w(makes improvements videos beers breweries trucks spills).should be_nouns
   end
+
+  it "returns false for hyphenated words which aren't in fact nouns" do
+    %w(low-key mid-week wrought-iron $25-a-plate).should_not be_nouns
+  end
 end

@@ -27,6 +27,7 @@ class HeadlineExtractor
 
     uri = URI(url)
     uri.fragment = nil
+    uri.query = nil
     uri.to_s
   end
 

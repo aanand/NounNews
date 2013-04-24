@@ -9,8 +9,8 @@ describe NounIdentifier do
     %w(duck's).should_not be_nouns
   end
 
-  it "returns false for words which are technically nouns but not really used as such" do
-    %w(more over in as).should_not be_nouns
+  it "returns false for words which are definitely not nouns in any well-known sense" do
+    %w(more over in as my into).should_not be_nouns
   end
 
   it "returns false for words which, when 'singularized', would be nouns, but which are not plural nouns" do

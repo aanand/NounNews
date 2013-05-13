@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 require 'noun_identifier'
 
@@ -7,6 +9,7 @@ describe NounIdentifier do
   it "returns false for posessives" do
     %w(duck).should be_nouns
     %w(duck's).should_not be_nouns
+    %w(duck’s).should_not be_nouns
   end
 
   it "returns false for words which are definitely not nouns in any well-known sense" do

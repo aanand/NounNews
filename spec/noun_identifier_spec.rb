@@ -25,7 +25,7 @@ describe NounIdentifier do
   end
 
   it "returns true for singular nouns" do
-    %w(mandela make improvement video beer brewery truck spill).should be_nouns
+    %w(mandela improvement video beer brewery truck spill).should be_nouns
   end
 
   it "returns true for plural nouns" do

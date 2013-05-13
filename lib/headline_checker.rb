@@ -9,6 +9,6 @@ class HeadlineChecker
 
   def is_all_nouns?(headline)
     words = @extractor.extract(headline)
-    words.all? { |word| @identifier.is_noun?(word) }
+    words.length > 0 and words.all? { |word| @identifier.is_noun?(word) }
   end
 end

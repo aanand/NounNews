@@ -13,6 +13,9 @@ module NounIdentifier
       # nothing with a number in it is a noun
       return false if word =~ /\d/
 
+      # nothing with a hyphen in it is a noun
+      return false if word =~ /-/
+
       # all uppercase acronyms are nouns
       return true if word =~ /^[A-Z]{2,}$/
 

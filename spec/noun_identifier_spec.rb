@@ -36,7 +36,7 @@ describe NounIdentifier do
     %w(makes says dies).should_not be_nouns
   end
 
-  it "returns false for hyphenated words which aren't in fact nouns" do
-    %w(low-key mid-week wrought-iron $25-a-plate).should_not be_nouns
+  it "returns false for hyphenated words" do
+    %w(low-key mid-week wrought-iron $25-a-plate short-range big-budget all-German one-year indian-american).should_not be_nouns
   end
 end

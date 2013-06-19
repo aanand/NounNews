@@ -31,6 +31,7 @@ every
 ex
 extended
 fewer
+first
 five
 for
 formulaic
@@ -83,6 +84,7 @@ of
 on
 online
 opened
+or
 over
 passed
 producing
@@ -94,12 +96,15 @@ rejected
 relaxed
 retired
 rushed
+say
 says
 sent
 severe
 should
 single
 super
+take
+takes
 tax-raising
 the
 then
